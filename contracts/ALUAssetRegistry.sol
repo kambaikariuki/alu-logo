@@ -38,7 +38,7 @@ contract ALUAssetRegistry is ERC721 {
 
         require(
             !hashExists[contentHash],
-            "Asset already registered!."
+            "Asset already registered!"
         );
 
         _tokenIds++;
@@ -66,7 +66,7 @@ contract ALUAssetRegistry is ERC721 {
         require(_ownerOf(tokenId)!= address(0), "Token does not exist");
 
         if (assets[tokenId].contentHash == suppliedHash) {
-            return (true, "Logo is authentic");
+            return (true, "Logo is authentic.");
         }
 
         return (false, "Warning: Logo does not match.");
