@@ -1,5 +1,3 @@
-# Sample Hardhat Project
-
 # ALU Logo Blockchain Asset Registry
 # Project Overview
 
