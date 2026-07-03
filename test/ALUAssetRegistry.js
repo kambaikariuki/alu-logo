@@ -4,6 +4,8 @@ const { ethers } = require("hardhat");
 describe("ALUAssetRegistry", function () {
     let registry;
     let owner;
+    let token;
+    let addr1;
 
     const assetName = "ALU Logo";
     const fileType = "PNG";
@@ -15,13 +17,16 @@ describe("ALUAssetRegistry", function () {
         "0x1111111111111111111111111111111111111111111111111111111111111111";
 
     beforeEach(async function () {
-        [owner] = await ethers.getSigners();
+        [owner, addr1] = await ethers.getSigners();
 
         const AssetRegistry = await ethers.getContractFactory(
             "ALUAssetRegistry"
         );
 
         registry = await AssetRegistry.deploy();
+
+        const LogoToken = await ethers.getContractFactory("ALULogoToken");
+        token = await LogoToken.deploy(owner.address);
 
         await registry.waitForDeployment();
     });
@@ -126,6 +131,47 @@ describe("ALUAssetRegistry", function () {
         expect(asset.fileType).to.equal(fileType);
         expect(asset.contentHash).to.equal(logoHash);
         expect(asset.registeredBy).to.equal(owner.address);
+    });
+
+    // Test 6
+
+    it("Mints the full supply to the owner", async function () {
+
+        const totalSupply = await token.totalSupply();
+
+        const ownerBalance = await token.balanceOf(owner.address);
+
+        expect(ownerBalance).to.equal(totalSupply);
+    });
+
+    // Test 7
+
+    it("distributeShaers transfers tokens correctly", async function () {
+
+        await token.distributeShares(
+            addr1.address,
+            100000
+        );
+
+        const balance = await token.balanceOf(addr1.address);
+
+        expect(balance).to.equal(ethers.parseUnits("100000", 18));
+
+    });
+
+
+    // Test 8
+
+    it("ownershipPercentage returns the correct percentage", async function () {
+
+        await token.distributeShares(
+            addr1.address,
+            250000
+        );
+
+        const percentage = await token.ownershipPercentage(addr1.address);
+
+        expect(percentage).to.equal(25);
     });
 
 });

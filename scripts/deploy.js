@@ -28,6 +28,19 @@ async function main() {
 
     const asset = await assetRegistry.getAsset(1);
     console.log(asset);
+
+    
+    const LogoToken = await hre.ethers.getContractFactory("ALULogoToken");
+
+    const token = await LogoToken.deploy(deployer.address);
+
+    await token.waitForDeployment();
+
+    console.log("ALULogoToken:", await token.getAddress());
+
+    console.log("Owner balance:", (await token.balanceOf(deployer.address)).toString());
+
+ 
 }
 
 main().catch((error) => {
