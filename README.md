@@ -44,19 +44,13 @@ Clone the repository and install the project dependencies.
 
 Compile the Contracts
 
-Compile all Solidity contracts.
-
 `npx hardhat compile`
 
 Run the Automated Tests
 
-Execute all unit tests.
-
 `npx hardhat test`
 
 Deploy the Contracts
-
-Deploy both smart contracts to the configured Hardhat network.
 
 `npx hardhat run scripts/deploy.js`
 
