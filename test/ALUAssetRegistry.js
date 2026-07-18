@@ -2,176 +2,126 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
 describe("ALUAssetRegistry", function () {
-    let registry;
-    let owner;
-    let token;
-    let addr1;
+  let registry;
+  let owner;
+  let token;
+  let addr1;
 
-    const assetName = "ALU Logo";
-    const fileType = "PNG";
+  const assetName = "ALU Logo";
+  const fileType = "PNG";
 
-    const logoHash =
-        "0xe3c7f839f5c0d1fdbdf8d98b7294f3dc9d0c09fd62fd32be2d5cbef5c8ab2c19";
+  const logoHash =
+    "0xe3c7f839f5c0d1fdbdf8d98b7294f3dc9d0c09fd62fd32be2d5cbef5c8ab2c19";
 
-    const wrongHash =
-        "0x1111111111111111111111111111111111111111111111111111111111111111";
+  const wrongHash =
+    "0x1111111111111111111111111111111111111111111111111111111111111111";
 
-    beforeEach(async function () {
-        [owner, addr1] = await ethers.getSigners();
+  beforeEach(async function () {
+    [owner, addr1] = await ethers.getSigners();
 
-        const AssetRegistry = await ethers.getContractFactory(
-            "ALUAssetRegistry"
-        );
+    const AssetRegistry = await ethers.getContractFactory("ALUAssetRegistry");
 
-        registry = await AssetRegistry.deploy();
+    registry = await AssetRegistry.deploy();
 
-        const LogoToken = await ethers.getContractFactory("ALULogoToken");
-        token = await LogoToken.deploy(owner.address);
+    const LogoToken = await ethers.getContractFactory("ALULogoToken");
+    token = await LogoToken.deploy(owner.address);
 
-        await registry.waitForDeployment();
-    });
+    await registry.waitForDeployment();
+  });
 
-    // ==========================================================
-    // Test 1
-    // ==========================================================
+  // ==========================================================
+  // Test 1
+  // ==========================================================
 
-    it("Registers the ALU logo successfully and returns token ID 1", async function () {
+  it("Registers the ALU logo successfully and returns token ID 1", async function () {
+    await registry.registerAsset(assetName, fileType, logoHash);
 
-        await registry.registerAsset(
-            assetName,
-            fileType,
-            logoHash
-        );
+    expect(await registry.ownerOf(1)).to.equal(owner.address);
+  });
 
-        expect(await registry.ownerOf(1)).to.equal(owner.address);
-    });
+  // ==========================================================
+  // Test 2
+  // ==========================================================
 
-    // ==========================================================
-    // Test 2
-    // ==========================================================
+  it("Rejects duplicate logo registration", async function () {
+    await registry.registerAsset(assetName, fileType, logoHash);
 
-    it("Rejects duplicate logo registration", async function () {
+    await expect(
+      registry.registerAsset(assetName, fileType, logoHash),
+    ).to.be.revertedWith("Asset already registered!");
+  });
 
-        await registry.registerAsset(
-            assetName,
-            fileType,
-            logoHash
-        );
+  // ==========================================================
+  // Test 3
+  // ==========================================================
 
-        await expect(
-            registry.registerAsset(
-                assetName,
-                fileType,
-                logoHash
-            )
-        ).to.be.revertedWith("Asset already registered!");
-    });
+  it("verifyLogoIntegrity returns true for the correct hash", async function () {
+    await registry.registerAsset(assetName, fileType, logoHash);
 
-    // ==========================================================
-    // Test 3
-    // ==========================================================
+    const result = await registry.verifyLogoIntegrity(1, logoHash);
 
-    it("verifyLogoIntegrity returns true for the correct hash", async function () {
+    expect(result[0]).to.equal(true);
+    expect(result[1]).to.equal("Logo is authentic.");
+  });
 
-        await registry.registerAsset(
-            assetName,
-            fileType,
-            logoHash
-        );
+  // ==========================================================
+  // Test 4
+  // ==========================================================
 
-        const result =
-            await registry.verifyLogoIntegrity(
-                1,
-                logoHash
-            );
+  it("verifyLogoIntegrity returns false for an incorrect hash", async function () {
+    await registry.registerAsset(assetName, fileType, logoHash);
 
-        expect(result[0]).to.equal(true);
-        expect(result[1]).to.equal("Logo is authentic.");
-    });
+    const result = await registry.verifyLogoIntegrity(1, wrongHash);
 
-    // ==========================================================
-    // Test 4
-    // ==========================================================
+    expect(result[0]).to.equal(false);
+    expect(result[1]).to.equal("Warning: Logo does not match.");
+  });
 
-    it("verifyLogoIntegrity returns false for an incorrect hash", async function () {
+  // ==========================================================
+  // Test 5
+  // ==========================================================
 
-        await registry.registerAsset(
-            assetName,
-            fileType,
-            logoHash
-        );
+  it("getAsset returns the correct asset metadata", async function () {
+    await registry.registerAsset(assetName, fileType, logoHash);
 
-        const result =
-            await registry.verifyLogoIntegrity(
-                1,
-                wrongHash
-            );
+    const asset = await registry.getAsset(1);
 
-        expect(result[0]).to.equal(false);
-        expect(result[1]).to.equal(
-            "Warning: Logo does not match."
-        );
-    });
+    expect(asset.assetName).to.equal(assetName);
+    expect(asset.fileType).to.equal(fileType);
+    expect(asset.contentHash).to.equal(logoHash);
+    expect(asset.registeredBy).to.equal(owner.address);
+  });
 
-    // ==========================================================
-    // Test 5
-    // ==========================================================
+  // Test 6
 
-    it("getAsset returns the correct asset metadata", async function () {
+  it("Mints the full supply to the owner", async function () {
+    const totalSupply = await token.totalSupply();
 
-        await registry.registerAsset(
-            assetName,
-            fileType,
-            logoHash
-        );
+    const ownerBalance = await token.balanceOf(owner.address);
 
-        const asset = await registry.getAsset(1);
+    expect(ownerBalance).to.equal(totalSupply);
+  });
 
-        expect(asset.assetName).to.equal(assetName);
-        expect(asset.fileType).to.equal(fileType);
-        expect(asset.contentHash).to.equal(logoHash);
-        expect(asset.registeredBy).to.equal(owner.address);
-    });
+  // Test 7
 
-    // Test 6
+  it("distributeShaers transfers tokens correctly", async function () {
+    await token.distributeShares(addr1.address, 100000);
 
-    it("Mints the full supply to the owner", async function () {
+    const balance = await token.balanceOf(addr1.address);
 
-        const totalSupply = await token.totalSupply();
+    expect(balance).to.equal("100000");
+  });
 
-        const ownerBalance = await token.balanceOf(owner.address);
+  // Test 8
 
-        expect(ownerBalance).to.equal(totalSupply);
-    });
+  it("ownershipPercentage returns the correct percentage", async function () {
+    await token.distributeShares(
+      addr1.address,
+      ethers.parseUnits("250000", 18),
+    );
 
-    // Test 7
+    const percentage = await token.ownershipPercentage(addr1.address);
 
-    it("distributeShaers transfers tokens correctly", async function () {
-
-        await token.distributeShares(
-            addr1.address,
-            100000
-        );
-
-        const balance = await token.balanceOf(addr1.address);
-
-        expect(balance).to.equal(ethers.parseUnits("100000", 18));
-
-    });
-
-
-    // Test 8
-
-    it("ownershipPercentage returns the correct percentage", async function () {
-
-        await token.distributeShares(
-            addr1.address,
-            250000
-        );
-
-        const percentage = await token.ownershipPercentage(addr1.address);
-
-        expect(percentage).to.equal(25);
-    });
-
+    expect(percentage).to.equal(25);
+  });
 });

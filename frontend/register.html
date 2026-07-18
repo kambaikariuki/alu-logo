@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register Logo</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="register.html">Upload a logo</a>
+      <a href="verify.html">Verify logo</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+    <main class="container">
+      <h1>ALU Logo Registration</h1>
+
+      <!-- Wallet -->
+
+      <section class="card">
+        <h2>Wallet</h2>
+
+        <button id="connect" class="primary-btn">Connect Wallet</button>
+
+        <p>
+          Address:
+          <span id="address"> Not connected </span>
+        </p>
+      </section>
+
+      <!-- Upload -->
+
+      <section class="card">
+        <h2>Upload Logo</h2>
+
+        <div class="form-group">
+          <input type="file" id="logoInput" accept="image/*" />
+        </div>
+
+        <div class="preview-container">
+          <img id="preview" class="image-preview" alt="Logo preview" />
+        </div>
+
+        <button id="generateHash" class="primary-btn" disabled>
+          Generate Hash
+        </button>
+
+        <h3>SHA-256 Hash</h3>
+
+        <p id="hash" class="hash-box">No hash generated</p>
+      </section>
+
+      <!-- Metadata -->
+
+      <section id="registrationSection" class="card">
+        <h2>Asset Information</h2>
+
+        <div class="form-group">
+          <label> Asset Name </label>
+
+          <input id="assetName" placeholder="ALU Official Logo 2026" />
+        </div>
+
+        <div class="form-group">
+          <label> File Type </label>
+
+          <input id="fileType" placeholder="PNG" />
+        </div>
+
+        <button id="registerAsset" class="primary-btn" disabled>
+          Register Asset
+        </button>
+
+        <p id="message"></p>
+      </section>
+    </main>
+
+    <script type="module" src="js/register.js"></script>
+  </body>
+</html>

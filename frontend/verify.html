@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ALU Logo Verification</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="register.html">Upload a logo</a>
+      <a href="verify.html">Verify logo</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+    <main class="container">
+      <header>
+        <h1>Logo Verification</h1>
+
+        <p>Verify whether a logo is the authentic ALU logo.</p>
+      </header>
+
+      <!-- File Verification -->
+
+      <section class="card">
+        <h2>Verify Using Logo File</h2>
+
+        <div class="form-group">
+          <input type="file" id="logoFile" accept="image/*" />
+        </div>
+
+        <div class="preview-container">
+          <img
+            id="preview"
+            class="image-preview"
+            style="display: none"
+            alt="Logo preview"
+          />
+        </div>
+
+        <button id="verifyFile" class="primary-btn" disabled>
+          Verify Logo
+        </button>
+      </section>
+
+      <!-- Hash Verification -->
+
+      <section class="card">
+        <h2>Verify Using Hash</h2>
+
+        <div class="form-group">
+          <input type="text" id="hashInput" placeholder="Paste SHA-256 hash" />
+        </div>
+
+        <button id="verifyHash" class="primary-btn">Verify Hash</button>
+      </section>
+
+      <!-- Result -->
+
+      <section id="resultSection" class="card">
+        <h2>Verification Result</h2>
+
+        <p id="result">No verification performed.</p>
+
+        <div id="metadata" style="display: none">
+          <h3>Registered Metadata</h3>
+
+          <p>
+            Name:
+            <span id="assetName"></span>
+          </p>
+
+          <p>
+            Type:
+            <span id="assetType"></span>
+          </p>
+
+          <p>
+            Owner:
+            <span id="assetOwner"></span>
+          </p>
+
+          <p>
+            Registered:
+            <span id="assetDate"></span>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/verify.js"></script>
+  </body>
+</html>

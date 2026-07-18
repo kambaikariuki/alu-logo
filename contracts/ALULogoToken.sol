@@ -22,7 +22,7 @@ contract ALULogoToken is ERC20, Ownable {
     ) public onlyOwner {
         require(amount > 0, "Amount must be greater than zero.");
 
-        _transfer(owner(), recipient, amount * 10 ** decimals());
+        _transfer(owner(), recipient, amount);
     }
 
     function ownershipPercentage(

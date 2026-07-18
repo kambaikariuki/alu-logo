@@ -1,0 +1,264 @@
+/* Global */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+  margin: 0;
+}
+
+/* Navigation */
+
+.navbar {
+  background: #111827;
+
+  padding: 18px;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 25px;
+}
+
+.navbar a {
+  color: white;
+
+  text-decoration: none;
+
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  color: #60a5fa;
+}
+
+/* Main container */
+
+.container {
+  max-width: 900px;
+
+  margin: 40px auto;
+
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* Cards */
+
+.card {
+  background: white;
+
+  padding: 25px;
+
+  margin-bottom: 25px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Buttons */
+
+button {
+  border: none;
+
+  cursor: pointer;
+
+  border-radius: 8px;
+
+  padding: 12px 20px;
+
+  font-size: 15px;
+}
+
+.primary-btn {
+  background: #2563eb;
+
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Information */
+
+.info p,
+.card p {
+  background: #f9fafb;
+
+  padding: 10px;
+
+  border-radius: 6px;
+
+  overflow-wrap: break-word;
+}
+
+span {
+  font-weight: bold;
+}
+
+/* Forms */
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 12px;
+
+  border-radius: 8px;
+
+  border: 1px solid #d1d5db;
+
+  font-size: 15px;
+}
+
+input:focus {
+  outline: none;
+
+  border-color: #2563eb;
+}
+
+/* Image preview */
+
+.preview-container {
+  margin: 20px 0;
+}
+
+.image-preview {
+  max-width: 300px;
+
+  max-height: 300px;
+
+  border-radius: 10px;
+
+  object-fit: contain;
+}
+
+/* Hash display */
+
+.hash-box {
+  background: #111827;
+
+  padding: 15px;
+
+  border-radius: 8px;
+
+  word-break: break-all;
+
+  font-family: monospace;
+}
+
+/* Disabled buttons */
+
+button:disabled {
+  background: #9ca3af;
+
+  cursor: not-allowed;
+}
+
+/* Messages */
+
+#message {
+  margin-top: 15px;
+
+  font-weight: bold;
+}
+
+/* Verification result */
+
+#result {
+  padding: 15px;
+
+  border-radius: 8px;
+
+  background: #f9fafb;
+
+  font-weight: bold;
+}
+
+.success {
+  background: #dcfce7 !important;
+
+  color: #166534;
+}
+
+.error {
+  background: #fee2e2 !important;
+
+  color: #991b1b;
+}
+
+/* Metadata box */
+
+#metadata {
+  margin-top: 20px;
+
+  padding: 20px;
+
+  background: #f9fafb;
+
+  border-radius: 10px;
+}
+
+#metadata p {
+  overflow-wrap: break-word;
+}
+/* Tables */
+
+.holders-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  margin-top: 15px;
+}
+
+.holders-table th,
+.holders-table td {
+  padding: 12px;
+
+  text-align: left;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.holders-table th {
+  background: #f3f4f6;
+}
+
+/* Long wallet addresses */
+
+.holders-table td {
+  overflow-wrap: anywhere;
+}
+
+/* Dashboard message */
+
+#message {
+  font-weight: bold;
+
+  padding: 12px;
+}
+

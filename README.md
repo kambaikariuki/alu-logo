@@ -1,4 +1,5 @@
 # ALU Logo Blockchain Asset Registry
+
 # Project Overview
 
 This project demonstrates how blockchain can be used to protect intellectual property and represent fractional ownership of a digital asset. It consists of two Solidity smart contracts:
@@ -8,8 +9,8 @@ This project demonstrates how blockchain can be used to protect intellectual pro
 
 The two contracts work together: the ERC-721 contract establishes ownership of the original logo as a unique asset, while the ERC-20 contract enables fractional ownership by representing shares of that asset as transferable tokens.
 
-
 ### Technologies Used
+
 - Solidity 0.8.28
 - Hardhat 2.28.6
 - OpenZeppelin Contracts 4.9.6
@@ -17,16 +18,17 @@ The two contracts work together: the ERC-721 contract establishes ownership of t
 - Node.js 22 LTS recommended
 
 ### Project Structure
+
 .
 ├── contracts/
-│   ├── ALUAssetRegistry.sol
-│   └── ALULogoToken.sol
+│ ├── ALUAssetRegistry.sol
+│ └── ALULogoToken.sol
 ├── scripts/
-│   └── deploy.js
+│ └── deploy.js
 ├── test/
-│   └── ALUAssetRegistry.js
+│ └── ALUAssetRegistry.js
 ├── assets/
-│   └── ALU-logo-white.png
+│ └── ALU-logo-white.png
 ├── hash.js
 ├── hash.txt
 ├── hardhat.config.js
@@ -61,6 +63,7 @@ Example:
 `npx hardhat run scripts/deploy.js --network localhost`
 
 ### Features
+
 - ALUAssetRegistry (ERC-721)
 - Registers the ALU logo as an NFT.
 - Prevents duplicate registrations using the SHA-256 content hash.
@@ -95,4 +98,3 @@ OpenZeppelin 5 introduced API changes and required the Cancun EVM for some contr
 ### SHA-256 Hash Generation
 
 A Node.js script was written to generate the SHA-256 hash of the ALU logo automatically and save it to a text file, ensuring the same verified hash was used during deployment.
-

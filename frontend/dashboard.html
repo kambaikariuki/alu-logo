@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Token Dashboard</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="register.html">Upload a logo</a>
+      <a href="verify.html">Verify logo</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+    <main class="container">
+      <header>
+        <h1>ALUT Token Dashboard</h1>
+      </header>
+
+      <!-- Wallet -->
+
+      <section class="card">
+        <h2>Wallet</h2>
+
+        <button id="connect" class="primary-btn">Connect Wallet</button>
+
+        <p>
+          Address:
+          <span id="address"> Not connected </span>
+        </p>
+      </section>
+
+      <!-- Token Overview -->
+
+      <section class="card">
+        <h2>Ownership Overview</h2>
+
+        <p>
+          Total Supply:
+          <span id="totalSupply"> - </span>
+          ALUT
+        </p>
+
+        <p>
+          Your Balance:
+          <span id="balance"> - </span>
+          ALUT
+        </p>
+
+        <p>
+          Your Ownership:
+          <span id="ownership"> - </span>
+          %
+        </p>
+      </section>
+
+      <!-- Holders -->
+
+      <section class="card">
+        <h2>Token Holders</h2>
+
+        <table class="holders-table">
+          <thead>
+            <tr>
+              <th>Wallet</th>
+
+              <th>Ownership</th>
+            </tr>
+          </thead>
+
+          <tbody id="holders">
+            <!-- JavaScript inserts rows here -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Distribution -->
+
+      <section id="distributionSection" class="card" style="display: none">
+        <h2>Distribute ALUT Shares</h2>
+
+        <p>Only the contract owner can access this section.</p>
+
+        <div class="form-group">
+          <label> Recipient Address </label>
+
+          <input id="recipient" placeholder="0x..." />
+        </div>
+
+        <div class="form-group">
+          <label> Amount </label>
+
+          <input id="amount" type="number" placeholder="Amount of ALUT" />
+        </div>
+
+        <button id="distribute" class="primary-btn">Send Tokens</button>
+      </section>
+
+      <!-- Messages -->
+
+      <section class="card">
+        <p id="message">-</p>
+      </section>
+    </main>
+
+    <script type="module" src="./js/dashboard.js"></script>
+  </body>
+</html>
