@@ -18,13 +18,15 @@ The two contracts work together: the ERC-721 contract establishes ownership of t
 - Node.js 22 LTS recommended
 
 ### Project Structure
-
+```
 .
 ├── contracts/
 │ ├── ALUAssetRegistry.sol
 │ └── ALULogoToken.sol
 ├── scripts/
 │ └── deploy.js
+├── frontend/
+│ 
 ├── test/
 │ └── ALUAssetRegistry.js
 ├── assets/
@@ -34,7 +36,10 @@ The two contracts work together: the ERC-721 contract establishes ownership of t
 ├── hardhat.config.js
 ├── package.json
 └── README.md
-Installation
+```
+
+
+### Installation
 
 Clone the repository and install the project dependencies.
 
@@ -64,6 +69,8 @@ Deploy the Contracts
 
 If deploying to another network, specify it using the --network option.
 
+### Frontend
+
 For the frontend, change directory to the frontend directory and initalize a server on port 8000:
 
 `python -m http.server 8000`
@@ -84,7 +91,9 @@ Open your browser and go to `localhost:8000` or `127.0.0.1:8000` to access the f
 - Mints the full supply to the initial owner.
 - Allows the owner to distribute ownership shares.
 - Calculates ownership percentage based on the holder's balance.
-- Development Challenges
+
+  
+### Development Challenges
 
 Several issues were encountered during development:
 
