@@ -61,11 +61,9 @@ Run a local blockchain network
 
 `npx hardhat node`
 
-
 Deploy the Contracts
 
 `npx hardhat run scripts/deploy.js --network localhost`
-
 
 If deploying to another network, specify it using the --network option.
 
@@ -76,7 +74,6 @@ For the frontend, change directory to the frontend directory and initalize a ser
 `python -m http.server 8000`
 
 Open your browser and go to `localhost:8000` or `127.0.0.1:8000` to access the frontend.
-
 
 ### Features
 
