@@ -23,6 +23,14 @@ const ownershipDisplay = document.getElementById("ownership");
 
 const distributionSection = document.getElementById("distributionSection");
 
+const tokenHoldersSection = document.getElementById("tokenHoldersSection");
+
+const ownershipOverviewSection = document.getElementById(
+  "ownershipOverviewSection",
+);
+
+const messageSection = document.getElementById("messageSection");
+
 const recipientInput = document.getElementById("recipient");
 
 const amountInput = document.getElementById("amount");
@@ -117,8 +125,14 @@ async function checkOwner() {
 
   if (owner.toLowerCase() === userAddress.toLowerCase()) {
     distributionSection.style.display = "block";
+    tokenHoldersSection.style.display = "block";
+    messageSection.style.display = "block";
+    ownershipOverviewSection.style.display = "block";
   } else {
     distributionSection.style.display = "none";
+    tokenHoldersSection.style.display = "block";
+    messageSection.style.display = "block";
+    ownershipOverviewSection.style.display = "block";
   }
 }
 
